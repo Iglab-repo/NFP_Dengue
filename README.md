@@ -10,3 +10,9 @@ correlation_pairwise.pl: This script is used to compute the pairwise correlation
 correlation_pairwise_groupwise.pl: This script is used to compute the pairwise correlation based on ID50 values between groups (N30, P0 and P30)
 
 compute_ratio_day30_day0.pl: This script is used to compute the ratio between P30 and P0
+
+donorwise_ID50_comparison_scatterplot.R: This script is used to generate scatterplots for the 10 donors (using serum data from P0 and P30)
+
+donorwise_NFPresults_comparison_scatterplot.R: This script is used to generate scatterplots for the 10 donors (using NFP prediction results of P0 and P30)
+
+ratio_day30_day0_ID50_heatmap.R: This script is used to generate heatmap using the data computed from compute_ratio_day30_day0.pl
