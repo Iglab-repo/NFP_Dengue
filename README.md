@@ -19,4 +19,4 @@ ratio_day30_day0_ID50_heatmap.R: This script is used to generate heatmap using t
 
 gen_theoretical_comb_w-var_modified.m: This script is used to simulate serum data using antibody neutralization data
 
-
+octave_delSel_w-tp.oct: This script is used to delineate antibody specificities of simulated sera using antibody neutralization data of all the combinations of 25 strains generated using combination.pl
