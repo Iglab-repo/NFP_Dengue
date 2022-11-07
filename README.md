@@ -1,7 +1,7 @@
 # NFP_Dengue
 
 **Scripts used for simulation, computing, analysis and to generate figures**
-
+--------------------------------------------------------------------------------
 
 combination.pl: This script is used to geneerate the all possible combinations (18 to 22) of 25 virus strains 
 
@@ -22,3 +22,10 @@ gen_theoretical_comb_w-var_modified.m: This script is used to simulate serum dat
 octave_delSel_w-tp.oct: This script is used to delineate antibody specificities of simulated sera (using 2 antibody data) using antibody neutralization data of all the combinations of 25 strains generated using combination.pl
 
 octave_delSel_w-tp_4class.oct: This script is used to delineate antibody specificities of simulated sera (using 4 antibody data) using antibody neutralization data of all the combinations of 25 strains generated using combination.pl
+
+
+
+
+
+---------------------------------------------------------------------------
+For further details or help, please contact the corresponding author
