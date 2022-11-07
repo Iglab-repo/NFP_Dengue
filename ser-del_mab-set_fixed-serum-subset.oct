@@ -1,0 +1,69 @@
+#!/bin/env octave -qf
+warning('off','all');
+function [spearmanOrder] = spearmanOrdering(vec)
+	testVec=vec;
+	testVec(end+1)=99999999999999;
+	[junk,tempOrdering] = sort(testVec);
+	newOrdering=zeros(length(testVec),1);
+	countRun=1;
+	for i=2:length(testVec)
+		if (testVec(tempOrdering(i))==testVec(tempOrdering(i-1)))
+			countRun+=1;
+		else
+			for j=1:countRun
+				newOrdering(tempOrdering(i-j))=(i-countRun+i-1)/2;
+			endfor
+			countRun=1;
+		endif
+	endfor
+	spearmanOrder=newOrdering(1:length(vec));
+endfunction
+
+function [masterMedMat] = neutProfile(neutMatrix,abClasses,mabNames)
+	for i=1:columns(neutMatrix)
+		abData(:,i)=spearmanOrdering(neutMatrix(:,i));
+	endfor
+	for class=1:length(abClasses)
+		curClassAbPos=[];
+		curClassAbData=[];
+		for j=1:length(abClasses{class})
+			curClassAbPos(j)=strmatch(abClasses{class}{j},mabNames,"exact");
+		endfor
+		curClassAbData=abData(:,curClassAbPos);
+		if (columns(curClassAbData)>1)
+			masterMedMat(class,:)=median(curClassAbData');
+		else
+			masterMedMat(class,:)=curClassAbData;
+		endif
+	endfor
+endfunction
+
+function [signal, curRss] = seralogic(profileMatrix,sera)
+	#sera is characterized by high magnitude indicating high signal
+	R=profileMatrix';
+	seraRank=spearmanOrdering(-sera);
+	H=2*R'*R;
+	q=-2*R'*seraRank;
+	signal = qp([],H,q,ones(1,rows(profileMatrix)),[1],zeros(rows(profileMatrix),1),999999*ones(rows(profileMatrix),1))';
+	curRss = norm (seraRank' - signal*profileMatrix);
+endfunction
+
+neutMatrix=load("./mab_neut_data_template.in");
+vStrains=textread('./serum_subset.in','%s');
+mabNames=textread('./mab_neut_mabNames.in','%s');
+abClasses={{"1F4", "4L5"}, {"2dd22", "3F9"}, {"5J7"}, {"ab126", "ab131"}, {"C10"}, {"1C19", "1M7", "1N5", "1C18", "1L6", "1N8", "3B4", "4ee8"}, {"2M2"}};
+
+
+serumSubset=load(["./serum_subset_pos.in"]);
+seraMatAll=load(["./input.in"]);
+numSera=columns(seraMatAll)
+numClasses=length(abClasses)
+
+testProfile=neutProfile(neutMatrix(serumSubset,:),abClasses,mabNames);
+testProfile
+for j=1:numSera
+        [testSeralogic(j,:), rss(j)] = seralogic(testProfile,seraMatAll(:,j));
+endfor
+	
+save serum_delineation_dengue.out testSeralogic
+save serum_delineation_rss_dengue.out rss
