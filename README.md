@@ -23,8 +23,11 @@ octave_delSel_w-tp.oct: This script is used to delineate antibody specificities 
 
 octave_delSel_w-tp_4class.oct: This script is used to delineate antibody specificities of simulated sera (using 4 antibody data) using antibody neutralization data of all the combinations of 25 strains generated using combination.pl
 
-
 ser-del_mab-set_fixed-serum-subset.oct: This script is used to predict the delineate of antibody specificities present in the 30 serum data from 20 donors
+
+gen_addtl_spec.oct: This script is used to simualte random serum data with unknow antibody specificities
+
+gen_additional_serum.pl: This script is sued to check the correlation between simulated data from gen_addtl_spec.oct and antibody neutralization data to select serum data with less correlation (<0.2)
 
 
 
